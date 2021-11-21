@@ -1,4 +1,4 @@
-# WeCanTrack
+# WeCanTrack PHP API
 WeCanTrack offers a software solution that helps (affiliate) publishers in their everday business activities, by providing them with insights on which content and campaigns are converting and how much revenue they are generating.
 
 ### Requirements
@@ -10,7 +10,7 @@ WeCanTrack offers a software solution that helps (affiliate) publishers in their
 $ composer require vzangloo/wecantrack
 ```
 
-### Basic Usage
+## Basic Usage
 
 #### ClickOut URL
 ```php
@@ -34,7 +34,7 @@ if($clickout->isValid()) {
 }
 ```
 
-### Documentation
+## Documentation
 See [Full Documentation](https://docs.wecantrack.com/)
 
 
@@ -157,4 +157,4 @@ echo $records->getCount(); // get the rows count for current page.
 ```
 
 ## License
-
+The WeCanTrack PHP API is licensed under the MIT License. See the [LICENSE](LICENSE) file for details
