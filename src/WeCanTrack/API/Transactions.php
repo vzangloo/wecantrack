@@ -65,7 +65,7 @@ class Transactions extends Request
     /**
      * @param string $fromDate
      * @param string $toDate    The end_date should be at least 1 day greater than the start_date, else end_date will be (start_date + 1 day)
-     * @param string $type
+     * @param string $type      The date_type for this date range
      * @return TransactionResponse
      */
     public function get(string $fromDate, string $toDate, string $type = self::LAST_WCT_UPDATE): TransactionResponse
