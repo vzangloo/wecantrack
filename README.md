@@ -7,7 +7,7 @@ WeCanTrack offers a software solution that helps (affiliate) publishers in their
 ### Installation
 1. Install package using composer
 ```shell
-$ composer require vzangloo/wecantrack
+$ composer require wecantrack/api
 ```
 
 ## Basic Usage
