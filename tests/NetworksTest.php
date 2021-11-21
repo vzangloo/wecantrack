@@ -8,23 +8,24 @@ class NetworksTest extends TestCase
 {
     public function testNetworksData(): void
     {
-        $response = (new Networks(API_KEY, false))->get();
+        $networks = (new Networks(API_KEY, false))->get();
         $count = 0;
-        foreach($response as $data) {
+        foreach($networks as $data) {
             ++$count;
             //$this->info(json_encode($data));
         }
-        $this->assertEquals($response->getCount(), $count, 'Compare count');
+        $this->assertEquals($networks->getCount(), $count, 'Compare count');
     }
 
     public function testNetworkAccountsData(): void
     {
-        $response = (new NetworkAccounts(API_KEY, false))->get();
+        $accounts = (new NetworkAccounts(API_KEY, false))->get();
         $count = 0;
-        foreach($response as $data) {
+        foreach($accounts as $data) {
             ++$count;
             //$this->info(json_encode($data));
         }
-        $this->assertEquals($response->getCount(), $count, 'Compare count');
+        $this->assertEquals($accounts->getCount(), $count, 'Compare count');
+        $this->assertTrue(is_string($accounts->getEarliestCreatedDate()), 'Get earliest created date');
     }
 }

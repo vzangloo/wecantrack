@@ -53,6 +53,14 @@ foreach($accounts as $account) {
 }
 
 echo $accounts->getCount(); // return Accounts count
+
+// get single account data
+$account = $accounts->findById(123);
+echo $account['id'];
+echo $account['name'];
+echo $account['network_id'];
+echo $account['is_enabled'];
+
 ```
 
 #### All Network Accounts with ID filter
@@ -154,6 +162,13 @@ foreach($records->limit(600)->page(3) as $row) {
 
 echo $records->getTotalCount(); // get all record count.
 echo $records->getCount(); // get the rows count for current page.
+```
+
+#### Utilities
+```phpt
+use WeCanTrack\Helper\Utilities;
+
+echo Utilities::extractReference($url); // return wct200514135314e7x4d
 ```
 
 ## License

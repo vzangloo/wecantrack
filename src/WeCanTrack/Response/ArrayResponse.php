@@ -8,7 +8,7 @@ use WeCanTrack\Helper\Curl;
 class ArrayResponse extends Response implements \Iterator
 {
     private Request $query;
-    private array $body = [];
+    protected array $body = [];
     private $key;
     private $value;
 
@@ -19,30 +19,27 @@ class ArrayResponse extends Response implements \Iterator
 
     protected function requestData()
     {
-        $response = Curl::request($this->query->getHeaders())
-            ->query($this->query->getPayloads())
-            ->get($this->query->getUrl());
-        if($response == false) {
-            $this->error(Curl::getError());
-        } else {
-            $this->body = $response;
+        if(empty($this->body)) {
+            $response = Curl::request($this->query->getHeaders())
+                ->query($this->query->getPayloads())
+                ->get($this->query->getUrl());
+            if($response == false) {
+                $this->addError(Curl::getError());
+            } else {
+                $this->body = $response;
+            }
         }
     }
 
     public function getCount(): int
     {
-        if(empty($this->body)) {
-            $this->requestData();
-        }
+        $this->requestData();
         return count($this->body);
     }
 
     public function rewind(): void
     {
-        if(empty($this->body)) {
-            $this->requestData();
-        }
-
+        $this->requestData();
         $this->value = current($this->body);
         $this->key = key($this->body);
     }

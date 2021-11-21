@@ -2,6 +2,8 @@
 
 namespace WeCanTrack\Response;
 
+use WeCanTrack\Helper\Utilities;
+
 class ClickoutResponse extends Response
 {
     protected object $content;
@@ -23,8 +25,7 @@ class ClickoutResponse extends Response
     public function getReference(): ?string
     {
         if($url = $this->getAffiliateUrl()) {
-            preg_match('/((WCT|wct)[0-9]{12}[A-Za-z0-9]{1,5})/', $url, $matches);
-            return empty($matches[0]) ? null : $matches[0];
+            return Utilities::extractReference($url);
         }
         return null;
     }

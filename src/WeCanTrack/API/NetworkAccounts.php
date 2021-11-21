@@ -2,7 +2,7 @@
 
 namespace WeCanTrack\API;
 
-use WeCanTrack\Response\ArrayResponse;
+use WeCanTrack\Response\NetworkAccountsResponse;
 
 class NetworkAccounts extends Request
 {
@@ -14,8 +14,8 @@ class NetworkAccounts extends Request
         return $this;
     }
 
-    public function get(): ArrayResponse
+    public function get(): NetworkAccountsResponse
     {
-        return new ArrayResponse($this);
+        return new NetworkAccountsResponse($this);
     }
 }

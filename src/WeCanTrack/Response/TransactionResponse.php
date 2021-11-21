@@ -166,7 +166,7 @@ class TransactionResponse extends Response implements \Iterator
             }while($response == false && ($retry++ <= $this->retry));
 
             if($response == false) {
-                $this->error(Curl::getError());
+                $this->addError(Curl::getError());
             } else {
                 $this->body = $response;
             }
