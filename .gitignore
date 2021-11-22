@@ -5,6 +5,7 @@
 
 vendor/
 tests/bootstrap.php
+composer.lock
 
 # Node artifact files
 node_modules/
