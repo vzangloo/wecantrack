@@ -6,7 +6,7 @@ use WeCanTrack\Response\NetworkAccountsResponse;
 
 class NetworkAccounts extends Request
 {
-    protected string $api = 'https://app.wecantrack.com/api/v2/network_accounts';
+    protected string $api = 'https://api.wecantrack.com/api/v2/network_accounts';
 
     public function ids($ids): self
     {

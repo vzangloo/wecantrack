@@ -7,7 +7,7 @@ use WeCanTrack\Helper\Curl;
 
 class Clickout extends Request
 {
-    protected string $api = 'https://app.wecantrack.com/api/v1/clickout';
+    protected string $api = 'https://api.wecantrack.com/api/v1/clickout';
 
     public function affiliateUrl(string $url, bool $encode = true): self
     {
@@ -72,7 +72,6 @@ class Clickout extends Request
                         ->query($this->getPayloads())
                         ->decodeBody(false)
                         ->post($this->getUrl());
-        var_dump($response);
         return new ClickoutResponse($response, Curl::getError());
     }
 }
