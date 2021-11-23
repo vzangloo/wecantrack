@@ -125,7 +125,7 @@ class TransactionResponse extends Response implements \Iterator
     public function rewind(): void
     {
         $this->next();
-        $this->totalCount = $this->singlePage? $this->getTotal(): $this->getTotalCount();
+        $this->totalCount = $this->singlePage? $this->getCount(): $this->getTotalCount();
         $this->index = 1;
     }
 

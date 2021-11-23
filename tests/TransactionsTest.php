@@ -41,8 +41,6 @@ class TransactionsTest extends TestCase
      */
     public function testDataCount(string $startDate, string $endDate): void
     {
-        $this->info('Please wait, the tests will take awhile)');
-
         $response = (new Transactions(API_KEY))->get($startDate, $endDate);
         $count = 0;
         foreach($response as $data) {
@@ -106,6 +104,6 @@ class TransactionsTest extends TestCase
         foreach($response->limit($perPage)->page($page) as $data) {
             ++$totalRowsPerPage;
         }
-        $this->assertEquals($totalRowsPerPage, $response->getTotal(), "Total returned");
+        $this->assertEquals($totalRowsPerPage, $response->getCount(), "Total returned");
     }
 }

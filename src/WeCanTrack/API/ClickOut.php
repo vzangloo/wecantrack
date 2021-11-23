@@ -2,10 +2,10 @@
 
 namespace WeCanTrack\API;
 
-use WeCanTrack\Response\ClickoutResponse;
+use WeCanTrack\Response\ClickOutResponse;
 use WeCanTrack\Helper\Curl;
 
-class Clickout extends Request
+class ClickOut extends Request
 {
     protected string $api = 'https://api.wecantrack.com/api/v1/clickout';
 
@@ -63,7 +63,7 @@ class Clickout extends Request
         return $this;
     }
 
-    public function get(): ClickoutResponse
+    public function get(): ClickOutResponse
     {
         $this->payloads['_ga'] = $_COOKIE['_ga'] ?? null;
         $this->payloads['_wctrck'] = $_COOKIE['_wctrck'] ?? null;
@@ -72,6 +72,6 @@ class Clickout extends Request
                         ->query($this->getPayloads())
                         ->decodeBody(false)
                         ->post($this->getUrl());
-        return new ClickoutResponse($response, Curl::getError());
+        return new ClickOutResponse($response, Curl::getError());
     }
 }

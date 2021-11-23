@@ -1,4 +1,6 @@
 <?php
 require 'vendor/autoload.php';
 
-define('API_KEY', 'YOUR-API-KEY');
+if(!defined('API_KEY')){
+    define('API_KEY', 'YOUR-API-KEY');
+}

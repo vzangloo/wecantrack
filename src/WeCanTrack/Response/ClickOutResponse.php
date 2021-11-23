@@ -4,7 +4,7 @@ namespace WeCanTrack\Response;
 
 use WeCanTrack\Helper\Utilities;
 
-class ClickoutResponse extends Response
+class ClickOutResponse extends Response
 {
     protected object $content;
 

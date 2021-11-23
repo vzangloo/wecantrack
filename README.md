@@ -13,10 +13,11 @@ $ composer require wecantrack/api
 ## Basic Usage
 
 #### ClickOut URL
-```php
-use WeCanTrack\API\Clickout;
 
-$clickout = (new Clickout(API_KEY))
+```php
+use WeCanTrack\API\ClickOut;
+
+$clickOut = (new ClickOut(API_KEY))
                     ->affiliateUrl('https://www.awin1.com/cread.php?awinmid=10921&awinaffid=211395&clickref2=MY&...')
                     ->clickoutUrl('https://your-clickout-url.com/clickout')
                     ->ipAddress('your-ip-address')
@@ -26,11 +27,11 @@ $clickout = (new Clickout(API_KEY))
                     ])
                     ->get();
 
-if($clickout->isValid()) {
-    echo $clickout->getAffiliateUrl();
-    echo $clickout->getReference(); // return WCT reference. Example: wct200514135314e7x4d
+if($clickOut->isValid()) {
+    echo $clickOut->getAffiliateUrl();
+    echo $clickOut->getReference(); // return WCT reference. Example: wct200514135314e7x4d
 } else {
-    var_dump($clickout->getErrors());
+    var_dump($clickOut->getErrors());
 }
 ```
 

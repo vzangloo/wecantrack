@@ -2,9 +2,9 @@
 require 'bootstrap.php';
 
 use WeCanTrack\Helper\TestCase;
-use WeCanTrack\API\Clickout;
+use WeCanTrack\API\ClickOut;
 
-class ClickoutTest extends TestCase
+class ClickOutTest extends TestCase
 {
     public function urlProvider(): array
     {
@@ -22,9 +22,9 @@ class ClickoutTest extends TestCase
      * @param bool $expected
      * @return void
      */
-    public function testClickout(string $url, bool $expected): void
+    public function testClickOut(string $url, bool $expected): void
     {
-        $content = (new Clickout(API_KEY))
+        $clickOut = (new ClickOut(API_KEY))
                     ->affiliateUrl($url)
                     ->clickoutUrl('https://localhost')
                     //->ipAddress('127.0.0.1')
@@ -33,9 +33,12 @@ class ClickoutTest extends TestCase
                     ])
                     ->get();
 
-        if($content->isValid()) {
-            //echo json_encode($content->getErrors());
+        if($clickOut->isValid()) {
+            $this->assertTrue(str_contains($clickOut->getAffiliateUrl(), 'wct'), 'Affiliate URL contains WCT reference');
+            $this->assertTrue(str_contains($clickOut->getReference(), 'wct'), 'Valid WCT reference');
+        } else {
+            $error = json_encode($clickOut->getErrors());
+            $this->assertIsString($error, 'ClickOut able to return error');
         }
-
     }
 }
