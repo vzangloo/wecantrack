@@ -41,10 +41,15 @@ class TransactionsTest extends TestCase
      */
     public function testDataCount(string $startDate, string $endDate): void
     {
-        $response = (new Transactions(API_KEY))->get($startDate, $endDate);
+        $this->info(API_KEY);
+        $response = (new Transactions(API_KEY, false))->get($startDate, $endDate);
+        /*$totalCount = $response->getTotalCount();
+        $this->info("Total count: $totalCount");*/
         $count = 0;
         foreach($response as $data) {
             ++$count;
+            /*echo json_encode($data) . "\n\n";
+            if($count >= 3){ exit; }*/
         }
         $this->assertEquals($response->getTotalCount(), $count, 'Compare count');
     }

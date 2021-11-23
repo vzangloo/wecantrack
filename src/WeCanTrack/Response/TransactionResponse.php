@@ -52,8 +52,7 @@ class TransactionResponse extends Response implements \Iterator
     public function getTotalCount(): int
     {
         if(empty($this->body)) {
-            $this->limit(1)->next();
-            $this->limit(20);
+            $this->requestData();
         }
         return (int)($this->body['total'] ?? 0);
     }
@@ -122,11 +121,38 @@ class TransactionResponse extends Response implements \Iterator
         return $this->index;
     }
 
+    protected function requestData(): void
+    {
+        if($url = $this->getNextUrl()) {
+            $this->transaction->page($this->getCurrentPage() + 1);
+        } else {
+            $url = $this->transaction->getUrl();
+        }
+
+        $retry = 1;
+        do{
+            sleep($this->delay);
+            $response = Curl::request($this->transaction->getHeaders())
+                ->query($this->transaction->getPayloads())
+                ->get($url);
+        }while($response == false && ($retry++ <= $this->retry));
+
+        if($response == false) {
+            $this->addError(Curl::getError());
+        } else {
+            $this->body = $response;
+            $this->value = current($this->body['data']);
+            $this->key = key($this->body['data']);
+        }
+    }
+
     public function rewind(): void
     {
-        $this->next();
-        $this->totalCount = $this->singlePage? $this->getCount(): $this->getTotalCount();
+        if(empty($this->body)) {
+            $this->requestData();
+        }
         $this->index = 1;
+        $this->totalCount = $this->singlePage? $this->getCount(): $this->getTotalCount();
     }
 
     public function valid(): bool
@@ -150,32 +176,12 @@ class TransactionResponse extends Response implements \Iterator
 
     public function next(): void
     {
-        if(!$this->isLastItem && (empty($this->body) || next($this->body['data']) === false)) {
-            if($url = $this->getNextUrl()) {
-                $this->transaction->page($this->getCurrentPage() + 1);
-            } else {
-                $url = $this->transaction->getUrl();
-            }
-
-            $retry = 1;
-            do{
-                sleep($this->delay);
-                $response = Curl::request($this->transaction->getHeaders())
-                    ->query($this->transaction->getPayloads())
-                    ->get($url);
-            }while($response == false && ($retry++ <= $this->retry));
-
-            if($response == false) {
-                $this->addError(Curl::getError());
-            } else {
-                $this->body = $response;
-            }
+        if(!$this->isLastItem && next($this->body['data']) === false) {
+            $this->requestData();
         }
 
-        if(!empty($this->body['data'])) {
-            $this->value = current($this->body['data']);
-            $this->key = key($this->body['data']);
-        }
+        $this->value = current($this->body['data']);
+        $this->key = key($this->body['data']);
         ++$this->index;
     }
 }

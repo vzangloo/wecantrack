@@ -9,7 +9,6 @@ class Transactions extends Request
 {
     protected string $api = 'https://api.wecantrack.com/api/v3/transactions';
     protected int $maxPerRequest = 1000;
-    protected int $defaultLimit = 20;
 
     const
         ORDER_DATE = 'order_date',
