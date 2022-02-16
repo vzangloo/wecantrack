@@ -2,8 +2,6 @@
 
 namespace WeCanTrack\Response;
 
-use Carbon\Carbon;
-
 class WebsitesResponse extends ArrayResponse
 {
     public function findById(int $id): array
