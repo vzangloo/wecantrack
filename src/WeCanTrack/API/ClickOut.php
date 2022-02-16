@@ -35,7 +35,7 @@ class ClickOut extends Request
         return $this;
     }
 
-    public function customIndex(int $index = 1, string $value): self
+    public function customIndex(string $value, int $index = 1): self
     {
         if (1 <= $index && $index <= 5) {
             $this->payloads["custom_index_{$index}"] = $value;

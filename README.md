@@ -41,7 +41,7 @@ See [Full Documentation](https://docs.wecantrack.com/)
 
 #### All Network Accounts
 ```php
-use WeCanTrack\API\Networks, NetworkAccounts;
+use WeCanTrack\API\{Networks, NetworkAccounts};
 
 $accounts = (new NetworkAccounts(API_KEY))->get();
 
@@ -55,7 +55,7 @@ foreach($accounts as $account) {
 
 echo $accounts->getCount(); // return Accounts count
 
-// get single account data
+// get single account data by id
 $account = $accounts->findById(123);
 echo $account['id'];
 echo $account['name'];
@@ -66,10 +66,12 @@ echo $account['is_enabled'];
 
 #### All Network Accounts with ID filter
 ```php
-use WeCanTrack\API\Networks, NetworkAccounts;
+use WeCanTrack\API\{Networks, NetworkAccounts};
 
-$accounts = (new NetworkAccounts(API_KEY))->ids(12)->get(); // get account where its id = 12
-$accounts = (new NetworkAccounts(API_KEY))->ids([12, 123, 1234])->get(); // get accounts where its ids are 12, 123, 1234
+$networkAccounts = new NetworkAccounts(API_KEY);
+$accounts = $networkAccounts->ids(12)->get(); // get account where its id = 12
+// or
+$accounts = $networkAccounts->ids([12, 123, 1234])->get(); // get accounts where its ids are 12, 123, 1234
 
 foreach($accounts as $account) {
     echo $account['id'];
@@ -82,9 +84,31 @@ foreach($accounts as $account) {
 echo $accounts->getCount(); // return Accounts count
 ```
 
+#### All websites
+```php
+use WeCanTrack\API\Websites
+
+$websites = (new Websites(API_KEY))->get();
+
+foreach($websites as $data) {
+    echo $data['id'];
+    echo $data['url'];
+    echo $data['active'];
+}
+// get single website data by id
+$data = $websites->findById(123);
+echo $data['id'];
+echo $data['url'];
+echo $data['active'];
+
+```
+
 #### All Transactions
 ```php
 use WeCanTrack\API\Transactions;
+
+$startDate = '2019-01-01';
+$endDate = '2019-01-31';
 
 $records = (new Transactions(API_KEY))->get($startDate, $endDate);
 
@@ -107,6 +131,9 @@ echo $records->getTotalCount(); // get all record count.
 ```php
 use WeCanTrack\API\Transactions;
 
+$startDate = '2019-01-01';
+$endDate = '2019-01-31';
+
 $records = (new Transactions(API_KEY))
             ->networkAccountId(123)
             ->status([
@@ -128,6 +155,9 @@ echo $records->getTotalCount(); // get all record count.
 ```php
 use WeCanTrack\API\Transactions;
 
+$startDate = '2019-01-01';
+$endDate = '2019-01-31';
+
 $records = (new Transactions(API_KEY))
             ->status([
                 Transactions::STATUS_PENDING,
@@ -147,6 +177,9 @@ echo $records->getTotalCount(); // get all record count.
 #### Get All Transactions For a Page
 ```php
 use WeCanTrack\API\Transactions;
+
+$startDate = '2019-01-01';
+$endDate = '2019-01-31';
 
 $records = (new Transactions(API_KEY))
             ->status([

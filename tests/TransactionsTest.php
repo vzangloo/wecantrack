@@ -41,7 +41,7 @@ class TransactionsTest extends TestCase
      */
     public function testDataCount(string $startDate, string $endDate): void
     {
-        $this->info(API_KEY);
+        //$this->info(API_KEY);
         $response = (new Transactions(API_KEY, false))->get($startDate, $endDate);
         /*$totalCount = $response->getTotalCount();
         $this->info("Total count: $totalCount");*/
