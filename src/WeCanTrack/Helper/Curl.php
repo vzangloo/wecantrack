@@ -18,7 +18,7 @@ use UriInterface;
 
 /**
  * Class Curl
- * @package Libs
+ * @package WeCanTrack\Helper
  *
  * @author: vzangloo <zang@saleduck.com>
  * @link: https://www.saleduck.com

@@ -3,7 +3,7 @@
 namespace WeCanTrack\Traits;
 
 /**
- * Class Error
+ * Trait Error
  * @package WeCanTrack\Traits
  *
  * @author: vzangloo <zang@saleduck.com>
@@ -13,20 +13,45 @@ namespace WeCanTrack\Traits;
  */
 trait Error
 {
+    /**
+     * @var array $errors The errors array
+     */
     protected array $errors = [];
+
+    /**
+     * @var bool $debugMode The debug mode. Default is false.
+     */
     protected bool $debugMode = false;
 
-    public function debug($enabled = true): self
+    /**
+     * Enable debug mode
+     *
+     * @param bool $enabled Set true to enable debug mode. Default is true.
+     * @return $this
+     */
+    public function debug(bool $enabled = true): self
     {
         $this->debugMode = $enabled;
         return $this;
     }
 
-    public function addError($message)
+    /**
+     * Add error message.
+     *
+     * @param string $message The error message.
+     * @return void
+     */
+    public function addError(string $message)
     {
         $this->errors[] = $message;
     }
 
+    /**
+     * Add array of error messages.
+     *
+     * @param array $messages Array of error messages.
+     * @return void
+     */
     public function addErrors(array $messages = [])
     {
         if ($messages) {
@@ -34,20 +59,30 @@ trait Error
         }
     }
 
+    /**
+     * Check is valid.
+     *
+     * @return bool True if valid.
+     */
     public function isValid(): bool
     {
         return empty($this->errors);
     }
 
+    /**
+     * Check is has error.
+     *
+     * @return bool True if has error.
+     */
     public function hasError(): bool
     {
         return !$this->isValid();
     }
 
     /**
-     * Get errors
+     * Get all errors
      *
-     * @return array
+     * @return array Array of error messages.
      */
     public function getErrors(): array
     {

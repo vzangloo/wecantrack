@@ -17,13 +17,26 @@ abstract class Request
 {
     use Error;
 
+    /**
+     * @var string API endpoint
+     */
     protected string $api = '';
+
+    /**
+     * @var array The request headers
+     */
     protected array $headers = [];
+
+    /**
+     * @var array The request parameters
+     */
     protected array $payloads = [];
 
     /**
      * WeCanTrack constructor.
-     * @param string $apiKey
+     *
+     * @param string $apiKey    The API key to use for the request.
+     * @param bool $headerKey   Whether include API key in header, else API key will be included in payload. Default: true
      */
     final public function __construct(string $apiKey, bool $headerKey = true)
     {
@@ -40,6 +53,11 @@ abstract class Request
         }
     }
 
+    /**
+     * Get the full API endpoint.
+     *
+     * @return string
+     */
     public function getUrl(): string
     {
         return $this->payloads
@@ -47,11 +65,21 @@ abstract class Request
             : $this->api;
     }
 
+    /**
+     * Get API headers
+     *
+     * @return array
+     */
     public function getHeaders(): array
     {
         return $this->headers;
     }
 
+    /**
+     * Get API payloads
+     *
+     * @return array
+     */
     public function getPayloads(): array
     {
         return $this->payloads;

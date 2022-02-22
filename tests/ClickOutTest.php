@@ -4,8 +4,21 @@ require 'bootstrap.php';
 use WeCanTrack\Helper\TestCase;
 use WeCanTrack\API\ClickOut;
 
+/**
+ * Class ClickOutTest
+ *
+ * @author: vzangloo <zang@saleduck.com>
+ * @link: https://www.saleduck.com
+ * @since 1.0.0
+ * @copyright 2022 Saleduck Asia Sdn Bhd
+ */
 class ClickOutTest extends TestCase
 {
+    /**
+     * URLs cases to be tested.
+     *
+     * @return array[]
+     */
     public function urlProvider(): array
     {
         return [
